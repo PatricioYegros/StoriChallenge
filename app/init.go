@@ -12,6 +12,7 @@ const (
 	emailTemplate = "template/email.html"
 )
 
+//go:embed template/*
 var htmlFS embed.FS
 
 // NewService creates a new service.Service.
