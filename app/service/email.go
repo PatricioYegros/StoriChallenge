@@ -31,7 +31,6 @@ const emailSubject = "Stori Challenge - Transaction summary"
 type transactionsPerMonthEmailData struct {
 	Month string
 	Value string
-	IsOdd bool
 }
 
 type emailData struct {
@@ -73,7 +72,7 @@ func transactionsPerMonthToEmailData(transactionsPerMonthList []TransactionsPerM
 
 	result := make([]transactionsPerMonthEmailData, 0, len(transactionsPerMonthList))
 
-	for i, transactionsPerMonth := range transactionsPerMonthList {
+	for _, transactionsPerMonth := range transactionsPerMonthList {
 		var monthText string
 
 		// add year if not current year
@@ -86,7 +85,6 @@ func transactionsPerMonthToEmailData(transactionsPerMonthList []TransactionsPerM
 		result = append(result, transactionsPerMonthEmailData{
 			Month: monthText,
 			Value: strconv.Itoa(transactionsPerMonth.Amount),
-			IsOdd: (i%2 == 0),
 		})
 	}
 

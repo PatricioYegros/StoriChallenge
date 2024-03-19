@@ -43,7 +43,7 @@ var ErrParsingAmount = errors.New("error converting transaction amount to decima
 func (reader TransactionsReader) Read(csvFileName string) ([]models.Transaction, error) {
 	var csvReader funcs.FileReader
 	csvReader = reader.CSVReader
-	csvRows, err := csvReader.Read(csvFileName)
+	csvRows, err := csvReader.Read(csvFileName, "csv/")
 	if err != nil {
 		return nil, fmt.Errorf("%w: %s", ErrReadingTransactions, err.Error())
 	}

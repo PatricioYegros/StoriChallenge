@@ -7,15 +7,16 @@ import (
 	"os"
 )
 
+var ErrReadingFile = errors.New("error while reading file")
+
 type FileReader struct{}
 
 // Read reads a CSV file by its name.
 // Returns the list of rows of the CSV file
 // or ErrReadingFile if an error is produced
-func (reader FileReader) Read(fileName string) ([][]string, error) {
-	var ErrReadingFile = errors.New("error while reading file")
+func (reader FileReader) Read(fileName string, path string) ([][]string, error) {
 
-	file, err := os.Open("csv/" + fileName)
+	file, err := os.Open(path + fileName)
 	if err != nil {
 		return nil, fmt.Errorf("%w %s: %s", ErrReadingFile, fileName, err.Error())
 	}

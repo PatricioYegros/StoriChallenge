@@ -59,10 +59,11 @@ instructions on how to execute the code.
 
 ## Assumptions
 
-1. Transactions are always in the folder "csv" in csv format
+1. Transactions are always in the folder "csv" in csv format.
 2. Id is a unrepeatable integer number that increments by 1.
-3. The inserted email is considered correct only if it haves a "@" in it. (The app dont check if the domain or the email exist)
-4. The data in the transactions file always has this order: Id,Date,Transaction
+3. The inserted email is considered correct only if it haves a "@" in it. (The app dont check if the domain or the email exist).
+4. The data in the transactions file always has this order: Id,Date,Transaction.
+5. The transactions file is not eligible for the user.
 
 ## Execution
 
