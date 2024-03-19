@@ -36,17 +36,22 @@ Bonus points
 Delivery and code requirements
 
 Your project must meet these requirements:
-    1. The summary email contains information on the total balance in the account, the number of
-    transactions grouped by month, and the average credit and average debit amounts grouped by
-    month. Using the transactions in the image above as an example, the summary info would be
-    Total balance is 39.74
-    Number of transactions in July: 2
-    Number of transactions in August: 2
-    Average debit amount: -15.38
-    Average credit amount: 35.25
-    2. Include the file you create in CSV format.
-    3. Code is versioned in a git repository. The README.md file should describe the code interface and
-    instructions on how to execute the code.
+
+1. The summary email contains information on the total balance in the account, the number of
+transactions grouped by month, and the average credit and average debit amounts grouped by 
+month. 
+
+Using the transactions in the image above as an example, the summary info would be
+
+Total balance is 39.74
+Number of transactions in July: 2
+Number of transactions in August: 2
+Average debit amount: -15.38
+Average credit amount: 35.25
+
+2. Include the file you create in CSV format.
+3. Code is versioned in a git repository. The README.md file should describe the code interface and
+instructions on how to execute the code.
 
 ## Assumptions
 
