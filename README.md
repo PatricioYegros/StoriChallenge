@@ -2,11 +2,11 @@
 
 Backend Coding Challenge made by Patricio Yegros
 
-- [Challenge] (#Challenge)
+- [Challenge](#challenge)
 - [Assumptions](#assumptions)
 - [Execution](#execution)
-- [Email_Sending] (#email_sending)
-- [Money] (#money)
+- [EmailSending](#emailSending)
+- [Money](#money)
 
 ## Challenge
 
@@ -63,7 +63,7 @@ Delivery and code requirements
 3. Execute "go run main.go"
 4. Follow the instructions of the app!
 
-## Email_Sending
+## EmailSending
 
 1. This app use a specific email created by me (patricioyegrosstori@gmail.com), the user can insert an email for destiny but not for origin.
 2. The hardcoded password is a app-password created by gmail that only works with this app.
