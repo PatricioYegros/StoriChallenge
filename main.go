@@ -13,6 +13,7 @@ const csvFileNameParam = "transactions.csv"
 func main() {
 
 	var correctEmail bool = false
+	var err error
 
 	fmt.Println(("Welcome to Transaction Summary App"))
 	fmt.Println(("Please insert the email where the summary will be sent: "))
@@ -29,10 +30,7 @@ func main() {
 		}
 	}
 
-	processService, err := app.NewService()
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
+	processService := app.NewService()
 
 	err = processService.Process(csvFileNameParam, destinationEmail)
 	if err != nil {

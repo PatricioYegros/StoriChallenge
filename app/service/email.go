@@ -17,7 +17,7 @@ type IEmailService interface {
 		transactionBalance decimal.Decimal,
 		transactionsPerMonth []TransactionsPerMonth,
 		avgDebit, avgCredit decimal.Decimal,
-		reciever string,
+		receiver string,
 	) error
 }
 
@@ -47,7 +47,7 @@ func (emailService EmailService) Send(
 	transactionsBalance decimal.Decimal,
 	transactionsPerMonth []TransactionsPerMonth,
 	avgDebit, avgCredit decimal.Decimal,
-	reciever string,
+	receiver string,
 ) error {
 	var htmlBuffer bytes.Buffer
 
@@ -62,7 +62,7 @@ func (emailService EmailService) Send(
 		return fmt.Errorf("%w: %s", funcs.ErrSendingEmail, err.Error())
 	}
 
-	return emailService.EmailSender.Send(emailSubject, htmlBuffer.String(), reciever)
+	return emailService.EmailSender.Send(emailSubject, htmlBuffer.String(), receiver)
 }
 
 // transactionsPerMonthToEmailData transforms a list of transactions per month to

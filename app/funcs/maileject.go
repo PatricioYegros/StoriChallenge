@@ -11,14 +11,14 @@ type EjectEmail struct {
 	Password string
 }
 
-func (sender EjectEmail) Send(subject string, body string, reciever string) error {
+func (sender EjectEmail) Send(subject string, body string, receiver string) error {
 	m := gomail.NewMessage()
 
 	// Set E-Mail sender
 	m.SetHeader("From", sender.Email)
 
 	// Set E-Mail receiver
-	m.SetHeader("To", reciever)
+	m.SetHeader("To", receiver)
 
 	// Set E-Mail subject
 	m.SetHeader("Subject", subject)

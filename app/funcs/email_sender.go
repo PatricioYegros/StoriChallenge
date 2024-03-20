@@ -5,9 +5,9 @@ import (
 )
 
 type EmailSender interface {
-	// Send sends an email to the reciever with the subject and body received by parameter.
+	// Send sends an email to the receiver with the subject and body received by parameter.
 	// Returns ErrSendingEmail if an error is produced
-	Send(subject string, body string, reciever string) error
+	Send(subject string, body string, receiver string) error
 }
 
 var ErrSendingEmail = errors.New("error while sending email")

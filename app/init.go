@@ -17,7 +17,7 @@ var htmlFS embed.FS
 
 // NewService creates a new service.Service.
 // injects the email sender and the apppasword in the email sender.
-func NewService() (*service.Service, error) {
+func NewService() *service.Service {
 
 	return &service.Service{
 		TransactionsReader: service.TransactionsReader{
@@ -30,5 +30,5 @@ func NewService() (*service.Service, error) {
 				Password: "gguhfqbthlesqkmv",
 			},
 		},
-	}, nil
+	}
 }
