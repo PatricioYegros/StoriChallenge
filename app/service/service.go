@@ -41,21 +41,26 @@ func (service Service) Process(csvFileName, destinationEmail string) error {
 }
 
 // CalculateTotalBalance calculates the total balance from a list of transactions as the sum of all transactions
-func (service Service) CalculateTotalBalance(transactions []models.Transaction) decimal.Decimal {
+func (service Service) CalculateTotalBalance(transactions []models.Transaction) float64 {
 	amounts := transactionsToAmounts(transactions)
 
+	var totalAmount float64
+
 	if len(amounts) == 0 {
-		return decimal.Zero
+		return 0
 	}
 
 	if len(amounts) == 1 {
-		return amounts[0]
+		totalAmount, _ = amounts[0].Float64()
+		return totalAmount
 	}
 
-	return decimal.Sum(
+	totalAmount, _ = decimal.Sum(
 		amounts[0],
 		amounts[1:]...,
-	)
+	).Float64()
+
+	return totalAmount
 }
 
 // CalculateTransactionsPerMonth calculates the amount of transactions
@@ -83,7 +88,7 @@ func (service Service) CalculateTransactionsPerMonth(transactions []models.Trans
 }
 
 // CalculateAverageDebitAndCredit calculates the average debit and average credit from a list of transactions
-func (service Service) CalculateAverageDebitAndCredit(transactions []models.Transaction) (decimal.Decimal, decimal.Decimal) {
+func (service Service) CalculateAverageDebitAndCredit(transactions []models.Transaction) (float64, float64) {
 	amounts := transactionsToAmounts(transactions)
 
 	debits := pie.Filter(amounts, func(amount decimal.Decimal) bool {
@@ -94,7 +99,10 @@ func (service Service) CalculateAverageDebitAndCredit(transactions []models.Tran
 		return amount.GreaterThan(decimal.Zero)
 	})
 
-	return calculateAverage(debits), calculateAverage(credits)
+	averageDebit, _ := calculateAverage(debits).Float64()
+	averageCredit, _ := calculateAverage(credits).Float64()
+
+	return averageDebit, averageCredit
 }
 
 // calculateAverage calculates the average of a list of amount

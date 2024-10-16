@@ -27,7 +27,7 @@ func NewService() *service.Service {
 			Template: template.Must(template.ParseFS(htmlFS, emailTemplate)),
 			EmailSender: funcs.EjectEmail{
 				Email:    "patricioyegrosstori@gmail.com",
-				Password: "gguhfqbthlesqkmv",
+				Password: "lbeu ecrz auhd xfnv",
 			},
 		},
 	}

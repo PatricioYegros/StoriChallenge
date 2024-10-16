@@ -8,15 +8,14 @@ import (
 	"time"
 
 	"github.com/patricioyegros/storichallenge/app/funcs"
-	"github.com/shopspring/decimal"
 )
 
 type IEmailService interface {
 	// Send formats the data received by parameters into the Stori mail and sends it by email
 	Send(
-		transactionBalance decimal.Decimal,
+		transactionBalance float64,
 		transactionsPerMonth []TransactionsPerMonth,
-		avgDebit, avgCredit decimal.Decimal,
+		avgDebit, avgCredit float64,
 		receiver string,
 	) error
 }
@@ -44,18 +43,18 @@ type emailData struct {
 
 // send formats the data received by parameters into the Stori mail and sends it
 func (emailService EmailService) Send(
-	transactionsBalance decimal.Decimal,
+	transactionsBalance float64,
 	transactionsPerMonth []TransactionsPerMonth,
-	avgDebit, avgCredit decimal.Decimal,
+	avgDebit, avgCredit float64,
 	receiver string,
 ) error {
 	var htmlBuffer bytes.Buffer
 
 	err := emailService.Template.Execute(&htmlBuffer, emailData{
 		Date:                     time.Now().Format(time.DateTime),
-		TransactionsBalance:      transactionsBalance.String(),
-		AvgDebit:                 avgDebit.String(),
-		AvgCredit:                avgCredit.String(),
+		TransactionsBalance:      fmt.Sprintf("%.2f", transactionsBalance),
+		AvgDebit:                 fmt.Sprintf("%.2f", avgDebit),
+		AvgCredit:                fmt.Sprintf("%.2f", avgCredit),
 		TransactionsPerMonthList: transactionsPerMonthToEmailData(transactionsPerMonth),
 	})
 	if err != nil {
