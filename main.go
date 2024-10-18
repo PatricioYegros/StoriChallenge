@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/patricioyegros/storichallenge/app"
@@ -12,11 +13,11 @@ const csvFileNameParam = "transactions.csv"
 
 func main() {
 
-	var correctEmail bool = false
+	//var correctEmail bool = false
 	var err error
 
 	fmt.Println(("Welcome to Transaction Summary App"))
-	fmt.Println(("Please insert the email where the summary will be sent: "))
+	/*fmt.Println(("Please insert the email where the summary will be sent: "))
 
 	var destinationEmail string
 	fmt.Scanln(&destinationEmail)
@@ -28,14 +29,36 @@ func main() {
 		} else {
 			correctEmail = true
 		}
-	}
+	}*/
 
-	processService := app.NewService()
-
-	err = processService.Process(csvFileNameParam, destinationEmail)
+	db, err := app.NewDBConnection()
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
+
+	script, err := os.ReadFile("db.sql")
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+	query := string(script)
+	split := strings.Split(query, ";")
+	for _, line := range split {
+		if line != "" {
+			_, err = db.Exec(line)
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+		}
+	}
+
+	processService := app.NewService(db)
+
+	err = processService.Process(csvFileNameParam, db)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	db.Close()
 
 	log.Println("Transactions processed successfully")
 }

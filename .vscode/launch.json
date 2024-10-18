@@ -10,7 +10,14 @@
             "request": "launch",
             "mode": "auto",
             "program": "main.go",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "env": {
+                "MYSQL_URL": "localhost",
+                "MYSQL_PORT": 3306,
+                "MYSQL_USER": "root",
+                "MYSQL_PASSWORD": "stori_challenge",
+                "MYSQL_NAME": "stori_db"
+            }
         }
     ]
 }

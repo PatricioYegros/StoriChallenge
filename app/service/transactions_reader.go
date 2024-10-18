@@ -20,7 +20,9 @@ const (
 	DateHeader             = "Date"
 	AmountIndex            = 2
 	AmountHeader           = "Transaction"
-	numberOfElementsPerRow = 3
+	EmailIndex             = 3
+	EmailHeader            = "User"
+	numberOfElementsPerRow = 4
 
 	receivedDateSeparator = "/"
 	wantDateSeparator     = "-"
@@ -85,11 +87,14 @@ func (reader TransactionsReader) parse(csvRows [][]string, csvFileName string) (
 			return nil, errorParsingCSV(AmountHeader, amountString, lineNumber)
 		}
 
+		emailString := row[EmailIndex]
+
 		transactions = append(transactions, models.Transaction{
 			IDInFile: id,
 			FileName: csvFileName,
 			Date:     date,
 			Amount:   amount,
+			Email:    emailString,
 		})
 	}
 

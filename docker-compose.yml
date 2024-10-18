@@ -1,0 +1,33 @@
+#DEVELOPMENT ONLY, DO NOT USE FOR PRODUCTION
+
+services:
+  app:
+    image: golang
+    command: go run main.go
+    working_dir: /storichallenge
+    volumes:
+      - ./:/storichallenge
+    environment:
+      MYSQL_URL: localhost
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: stori_challenge
+      MYSQL_ROOT_PASSWORD: stori_challenge
+      MYSQL_NAME: stori_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: false
+  
+  mysql:
+    container_name: my_sql
+    image: "mysql:8.0"
+    command: --init-file /app/resources/db.sql 
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_URL: localhost
+      - MYSQL_PORT: 3306
+      - MYSQL_USER: root
+      - MYSQL_PASSWORD: stori_challenge
+      - MYSQL_ROOT_PASSWORD: stori_challenge
+      - MYSQL_NAME: stori_db
+    

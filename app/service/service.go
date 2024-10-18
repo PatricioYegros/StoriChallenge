@@ -1,10 +1,12 @@
 package service
 
 import (
+	"database/sql"
 	"sort"
 	"time"
 
 	"github.com/elliotchance/pie/v2"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/patricioyegros/storichallenge/app/models"
 	"github.com/shopspring/decimal"
 )
@@ -12,6 +14,7 @@ import (
 type Service struct {
 	TransactionsReader TransactionsReader
 	EmailService       IEmailService
+	TransactionService ITransactionService
 }
 
 type TransactionsPerMonth struct {
@@ -23,7 +26,7 @@ type TransactionsPerMonth struct {
 // calculates total balance, number of transactions grouped by month
 // and average credit and debit
 // and send this information by email to destinationEmail
-func (service Service) Process(csvFileName, destinationEmail string) error {
+func (service Service) Process(csvFileName string, db *sql.DB) error {
 	transactions, err := service.TransactionsReader.Read(csvFileName)
 	if err != nil {
 		return err
@@ -31,12 +34,17 @@ func (service Service) Process(csvFileName, destinationEmail string) error {
 
 	transactionsBalance := service.CalculateTotalBalance(transactions)
 
+	err = service.TransactionService.Apply(transactions, transactionsBalance, csvFileName, db)
+	if err != nil {
+		return err
+	}
+
 	avgDebit, avgCredit := service.CalculateAverageDebitAndCredit(transactions)
 
 	return service.EmailService.Send(
 		transactionsBalance,
 		service.CalculateTransactionsPerMonth(transactions),
-		avgDebit, avgCredit, destinationEmail,
+		avgDebit, avgCredit, transactions[0].Email,
 	)
 }
 

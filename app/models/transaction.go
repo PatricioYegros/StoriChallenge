@@ -13,4 +13,5 @@ type Transaction struct {
 	FileName string
 	Date     time.Time
 	Amount   decimal.Decimal
+	Email    string
 }

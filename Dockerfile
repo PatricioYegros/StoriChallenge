@@ -1,18 +1,15 @@
-FROM golang
-WORKDIR /path
-
-COPY go.mod go.sum ./
+FROM golang:alpine AS builder
+RUN apk --no-cache add build-base
+WORKDIR /app
+COPY . .
 RUN go mod download
-
-COPY *.go ./
-
-#RUN CGO_ENABLED=0 GOOS=windows go build -o /storichallenge/app
-#EXPOSE 8080
-#CMD ["/storichallenge/app"]
-
+RUN go build -o storichallenge
 FROM alpine:3.19
-COPY --from=builder /app/stori_challenge stori_challenge
+COPY --from=builder app/storichallenge storichallenge
+#RUN addgroup -g 1000 appuser \
+#    && adduser -u 1000 -g 1000 appuser 
+#USER appuser
 RUN addgroup -S nonroot \
-    && adduser -S nonroot -G nonroot
+    && adduser -S nonroot -g nonroot
 USER nonroot
-ENTRYPOINT ["/stori_challenge"]
+ENTRYPOINT ["/storichallenge"]
