@@ -9,7 +9,7 @@ import (
 	"github.com/patricioyegros/storichallenge/app"
 )
 
-const csvFileNameParam = "transactions.csv"
+const csvFileNameParam = "txns2.csv"
 
 func main() {
 
@@ -36,7 +36,7 @@ func main() {
 		log.Fatalln(err.Error())
 	}
 
-	script, err := os.ReadFile("db.sql")
+	script, err := os.ReadFile("app/resources/db.sql")
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
