@@ -61,24 +61,27 @@ instructions on how to execute the code.
 
 1. Transactions are always in the folder "csv" in csv format.
 2. Id is a unrepeatable integer number that increments by 1.
-3. The inserted email is considered correct only if it haves a "@" in it. (The app dont check if the domain or the email exist).
-4. The data in the transactions file always has this order: Id,Date,Transaction.
+3. The data in the transactions file always has this order: Id,Date,Transaction,Email.
 5. The transactions file is not eligible for the user.
 
 ## Execution
 
 1. Open your favourite IDE (Mine is VSCode)
 2. In the terminal, go to the folder StoriChallenge
-3. Execute "go run main.go"
-4. Follow the instructions of the app!
+3. Execute "go run main.go".
 
 ## EmailSending
 
-1. This app use a specific email created by me (patricioyegrosstori@gmail.com), the user can insert an email for destiny but not for origin.
+1. This app use a specific email created by me (patricioyegrosstori@gmail.com).
 2. The hardcoded password is a app-password created by gmail that only works with this app.
 
-## Money
-For all the money-related things, im using the library "shopspring/decimal", so we can forget about losing information in the parsing of the money.
-(Every penny maters!)
+## Database
+
+1. This app has data persistance.
+2. The app will execute a little script with the creations of tables and users.
+3. The transactions are combined into one unique transaction when is saved in the database.
+
+
+
 
 
