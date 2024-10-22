@@ -80,8 +80,4 @@ instructions on how to execute the code.
 1. This app has data persistance.
 2. The app will execute a little script with the creations of tables and users.
 3. The transactions are combined into one unique transaction when is saved in the database.
-
-
-
-
-
+4. You need to have a Database and a Schema called "stori_db" in your computer.
